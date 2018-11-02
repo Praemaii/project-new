@@ -43,7 +43,7 @@ public class Queueuser extends javax.swing.JFrame {
     public Queueuser(String data) {
         initComponents();
         queueUserService.showTime(ti);
-        queuUserDB.setJCombo(ti);
+        userDao.getPassanger(ti);
         //ดึงข้อมูล User และ Number มาแสดง
         Data = new JSONObject(data);
         u.setText(Data.getString("Username"));
@@ -195,7 +195,7 @@ public class Queueuser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        queuUserDB.enter(ti, n, g1, r1,Data);
+        userDao.addUser(ti, n, g1, r1,Data);
        
     }//GEN-LAST:event_jButton1ActionPerformed
 

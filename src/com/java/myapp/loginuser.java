@@ -139,7 +139,8 @@ public class loginuser extends javax.swing.JFrame {
                     }
                 
          
-        } catch (UnknownHostException e) {
+        } catch (Exception e) {
+     
             
         }
     }//GEN-LAST:event_jButton1ActionPerformed

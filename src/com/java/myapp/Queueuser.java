@@ -37,13 +37,13 @@ public class Queueuser extends javax.swing.JFrame {
     public Queueuser() {
         initComponents();
         //แสดงเวลา
-        showTime();
+        queueUserService.showTime(ti);
     }
 
     public Queueuser(String data) {
         initComponents();
-        showTime();
-        setJCombo();
+        queueUserService.showTime(ti);
+        queuUserDB.setJCombo(ti);
         //ดึงข้อมูล User และ Number มาแสดง
         Data = new JSONObject(data);
         u.setText(Data.getString("Username"));
@@ -70,44 +70,9 @@ public class Queueuser extends javax.swing.JFrame {
 
     }
 
-    //เวลา
-    void showTime() {
+  
 
-        new Timer(0, new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                Date d = new Date();
-                SimpleDateFormat s = new SimpleDateFormat("hh:mm:ss a");
-                ti.setText(s.format(d));
-            }
-        }).start();
-    }
-
-    public void setJCombo() {
-        BasicDBObject document = new BasicDBObject();
-        MongoClient mongo;
-
-        //เอาข้อมูล user มาแสดงที่ combobox
-        try {
-            mongo = new MongoClient("localhost", 27017);
-            DB db = mongo.getDB("mini");
-            DBCollection table = db.getCollection("passenger");
-
-            DBCursor c = table.find();
-            int i = 0;
-            while (c.hasNext()) {
-                i++;
-
-                String Row = c.next().toString();
-                JSONObject obj = new JSONObject(Row);
-                cb.addItem(obj.getString("Username"));
-
-            } 
-        } catch (Exception e) {
-
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -181,11 +146,6 @@ public class Queueuser extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(102, 102, 255));
         jButton2.setFont(new java.awt.Font("TH Sarabun New", 1, 20)); // NOI18N
         jButton2.setText("Out");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 430, 70, -1));
 
         jButton3.setBackground(new java.awt.Color(102, 102, 255));
@@ -216,21 +176,11 @@ public class Queueuser extends javax.swing.JFrame {
         g1.setBackground(new java.awt.Color(255, 204, 0));
         g1.setFont(new java.awt.Font("TH Sarabun New", 1, 22)); // NOI18N
         g1.setText("General Passenger");
-        g1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                g1ActionPerformed(evt);
-            }
-        });
         getContentPane().add(g1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 330, -1, -1));
 
         r1.setBackground(new java.awt.Color(255, 204, 0));
         r1.setFont(new java.awt.Font("TH Sarabun New", 1, 22)); // NOI18N
         r1.setText("Regular Passenger");
-        r1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                r1ActionPerformed(evt);
-            }
-        });
         getContentPane().add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
 
         cb1.addActionListener(new java.awt.event.ActionListener() {
@@ -245,153 +195,9 @@ public class Queueuser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //กดเข้าคิว
-        BasicDBObject document = new BasicDBObject();
-        MongoClient mongo;
-        try {
-            mongo = new MongoClient("localhost", 27017);
-            db = mongo.getDB("mini");
-            table = db.getCollection("queues");
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(รวมม.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //เมื่อกดเข้าต่อคิว ข้อมูลจะบันทึกลงฐานข้อมูล
-        try{
-        document.put("FirstTime", ti.getText());
-        document.put("Number", n.getText());
-        document.put("ID CARD", Data.getString("ID CARD"));
-        document.put("passenger", cb.getItemCount());
-        }catch(Exception e){
-            
-        }
-
-        if (g1.isSelected()) {
-            document.put("passenger", g1.getText());
-        } else {
-            document.put("passenger", r1.getText());
-        }
-        table.insert(document);
-        JOptionPane.showMessageDialog(null, "Success!!!");
+        queuUserDB.enter(ti, n, g1, r1,Data);
+       
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //ออกส่งลูกค้า
-        BasicDBObject document = new BasicDBObject();
-        BasicDBObject document2 = new BasicDBObject();
-        MongoClient mongo;
-        try {
-            mongo = new MongoClient("localhost", 27017);
-            db = mongo.getDB("mini");
-            table = db.getCollection("queues");
-        } catch (UnknownHostException ex) {
-            Logger.getLogger(รวมม.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if (g1.isSelected()) {
-            r1.setSelected(false);
-            document.put("ID CARD", Data.getString("ID CARD"));
-            table.remove(document);
-
-        } else if (r1.isSelected()) {
-            g1.setSelected(false);
-
-            document.put("ID CARD", Data.getString("ID CARD"));
-
-            //กดส่งลูกค้าแล้ว ข้อมูลในตารางของ User นั้น หายไป
-            table.remove(document);
-
-            //บวกจำนวนครั้งของลูกค้าประจำ
-            table = db.getCollection("passenger");
-            document2.put("Username", cb.getSelectedItem().toString());
-            BasicDBObject action = new BasicDBObject().append("$inc", new BasicDBObject().append("Count", 1));
-            table.update(document2, action);
-
-            JOptionPane.showMessageDialog(null, "Success!!!");
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void r1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_r1ActionPerformed
-        
-        //เช็คว่าเลือก General Passenger หรือ Regula Passenger
-        BasicDBObject document = new BasicDBObject();
-        if (r1.isSelected()) {
-            g1.setSelected(false);
-            document.put("General Passenger", r1.getText());
-
-            MongoClient mongo;
-
-            try {
-                mongo = new MongoClient("localhost", 27017);
-                DB db = mongo.getDB("mini");
-                DBCollection table = db.getCollection("passenger");
-
-                DBCursor c = table.find();
-                int i = 0;
-                while (c.hasNext()) {
-                    i++;
-
-                    String Row = c.next().toString();
-                    JSONObject obj = new JSONObject(Row);
-                    cb.addItem(obj.getString("Username"));
-
-                }
-            } catch (Exception ex) {
-
-            }
-        } else if (g1.isSelected()) {
-            r1.setSelected(false);
-            document.put("General Passenger", g1.getText());
-
-            MongoClient mongo;
-            DBCursor c = table.find();
-            String Row = c.next().toString();
-            JSONObject obj = new JSONObject(Row);
-
-            cb.removeItem(obj.getString("Username"));
-
-        }
-
-    }//GEN-LAST:event_r1ActionPerformed
-
-    private void g1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_g1ActionPerformed
-        BasicDBObject document = new BasicDBObject();
-        if (g1.isSelected()) {
-            r1.setSelected(false);
-            document.put("General Passenger", g1.getText());
-
-            MongoClient mongo;
-
-            try {
-                mongo = new MongoClient("localhost", 27017);
-                DB db = mongo.getDB("mini");
-                DBCollection table = db.getCollection("passenger");
-
-                DBCursor c = table.find();
-                int i = 0;
-                while (c.hasNext()) {
-                    i++;
-
-                    String Row = c.next().toString();
-                    JSONObject obj = new JSONObject(Row);
-                    cb.removeItem(obj.getString("Username"));
-
-                }
-            } catch (Exception ex) {
-
-            }
-        } else if (r1.isSelected()) {
-            g1.setSelected(false);
-            document.put("General Passenger", g1.getText());
-
-            MongoClient mongo;
-            DBCursor c = table.find();
-            String Row = c.next().toString();
-            JSONObject obj = new JSONObject(Row);
-            cb.addItem(obj.getString("Username"));
-
-        }
-
-
-    }//GEN-LAST:event_g1ActionPerformed
 
     private void uActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uActionPerformed
         // TODO add your handling code here:

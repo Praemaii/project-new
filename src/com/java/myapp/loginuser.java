@@ -76,11 +76,6 @@ public class loginuser extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 204, 51));
         jButton2.setFont(new java.awt.Font("TH Sarabun New", 1, 24)); // NOI18N
         jButton2.setText("Back");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 110, 40));
         getContentPane().add(p, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 320, 40));
 
@@ -112,6 +107,7 @@ public class loginuser extends javax.swing.JFrame {
                     if (c > 0) {
                         JOptionPane.showMessageDialog(null, "เข้าสู่ระบบเรียบร้อย");
                         Queueuser qu = new Queueuser(cursor.next().toString());
+                        //queuUserDB quDB= new queuUserDB(cursor.next().toString());
                         d = true;
                         qu.show();
                         this.hide();
@@ -146,16 +142,10 @@ public class loginuser extends javax.swing.JFrame {
                 
          
         } catch (UnknownHostException e) {
-            Logger.getLogger(รวมม.class.getName()).log(Level.SEVERE, null, e);
+            
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        รวมม ร = new รวมม();
-        ร.show();
-        this.hide();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

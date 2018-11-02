@@ -76,7 +76,7 @@ public class loginuser extends javax.swing.JFrame {
         jButton2.setBackground(new java.awt.Color(255, 204, 51));
         jButton2.setFont(new java.awt.Font("TH Sarabun New", 1, 24)); // NOI18N
         jButton2.setText("Back");
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 110, 40));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 410, 110, 40));
         getContentPane().add(p, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 320, 40));
 
         pack();
@@ -87,9 +87,7 @@ public class loginuser extends javax.swing.JFrame {
         BasicDBObject document = new BasicDBObject();
         MongoClient mongo;
         try {
-            mongo = new MongoClient("localhost", 27017);
-            db = mongo.getDB("mini");
-            table = db.getCollection("users");
+            
             document.put("Username", u.getText());
             document.put("Password", p.getText());
             document.put("Status", "Driver");

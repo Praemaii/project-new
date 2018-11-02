@@ -62,7 +62,7 @@ public class Queueuser extends javax.swing.JFrame {
 
         //การรันให้โปรแกรมเป็นเรียลทาม
         try{
-        new Thread(new getDataQueue(DisplayTB, this)).start();
+        new Thread(new userDao(DisplayTB, this)).start();
         cb.removeAllItems();
         }catch(Exception e){
             

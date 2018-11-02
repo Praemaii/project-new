@@ -61,8 +61,12 @@ public class Queueuser extends javax.swing.JFrame {
         model.setRowCount(0);
 
         //การรันให้โปรแกรมเป็นเรียลทาม
+        try{
         new Thread(new getDataQueue(DisplayTB, this)).start();
         cb.removeAllItems();
+        }catch(Exception e){
+            
+        }
 
     }
 
@@ -129,7 +133,6 @@ public class Queueuser extends javax.swing.JFrame {
         DisplayTB = new javax.swing.JTable();
         g1 = new javax.swing.JRadioButton();
         r1 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
         cb1 = new javax.swing.JComboBox<>();
 
         jLabel15.setText("jLabel15");
@@ -229,7 +232,6 @@ public class Queueuser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 330, -1, -1));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 520));
 
         cb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,10 +256,14 @@ public class Queueuser extends javax.swing.JFrame {
             Logger.getLogger(รวมม.class.getName()).log(Level.SEVERE, null, ex);
         }
         //เมื่อกดเข้าต่อคิว ข้อมูลจะบันทึกลงฐานข้อมูล
+        try{
         document.put("FirstTime", ti.getText());
         document.put("Number", n.getText());
         document.put("ID CARD", Data.getString("ID CARD"));
         document.put("passenger", cb.getItemCount());
+        }catch(Exception e){
+            
+        }
 
         if (g1.isSelected()) {
             document.put("passenger", g1.getText());
@@ -447,7 +453,6 @@ public class Queueuser extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;

@@ -46,7 +46,6 @@ public class loginuser extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         p = new javax.swing.JPasswordField();
-        jLabel1 = new javax.swing.JLabel();
 
         jLabel4.setText("jLabel4");
 
@@ -57,12 +56,12 @@ public class loginuser extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("TH Sarabun New", 1, 36)); // NOI18N
         jLabel2.setText("Username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 130, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 140, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("TH Sarabun New", 1, 36)); // NOI18N
         jLabel3.setText("Password");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
-        getContentPane().add(u, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 170, 317, 40));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, -1, -1));
+        getContentPane().add(u, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 317, 40));
 
         jButton1.setBackground(new java.awt.Color(255, 204, 51));
         jButton1.setFont(new java.awt.Font("TH Sarabun New", 1, 24)); // NOI18N
@@ -72,7 +71,7 @@ public class loginuser extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 110, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 110, -1));
 
         jButton2.setBackground(new java.awt.Color(255, 204, 51));
         jButton2.setFont(new java.awt.Font("TH Sarabun New", 1, 24)); // NOI18N
@@ -83,8 +82,7 @@ public class loginuser extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 410, 110, 40));
-        getContentPane().add(p, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, 320, 40));
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 530, 550));
+        getContentPane().add(p, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, 320, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -197,7 +195,6 @@ public class loginuser extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
